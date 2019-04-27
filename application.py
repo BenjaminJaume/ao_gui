@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
   
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import gi, os, sys, time
 gi.require_version('Gtk', '3.0')
 gi.require_version('WebKit', '3.0')
@@ -20,14 +20,13 @@ ventPin = 21
 #batteryPin = UNDEFINED
 
 # setup GPIO
-#GPIO.setmode(GPIO.BCM) # Broadcom numbering system
-#GPIO.setup(ledPin, GPIO.OUT)
+GPIO.setmode(GPIO.BCM) # Broadcom numbering system
+GPIO.setup(ledPin, GPIO.OUT)
 #GPIO.setup(ventPin, GPIO.OUT)
 #GPIO.setup(batteryPin, GPIO.IN)
 
 # Initialise outputs
-
-#GPIO.output(ledPin, GPIO.LOW)
+GPIO.output(ledPin, GPIO.LOW)
 #GPIO.output(ventPin, GPIO.LOW)
 
 # Global variables definition
@@ -46,11 +45,12 @@ def map(x, inLo, inHi, outLo, outHi):
 
 class Handler:
     
-    def on_button_LED_clicked(self, button):
+    def on_button_led_clicked(self, button):
         global state_LED
 
+        # If we have clicked the button AND the LED was switched OFF
         if state_LED == "OFF":
-            #GPIO.output(ledPin, GPIO.HIGH)
+            GPIO.output(ledPin, GPIO.HIGH)
             state_LED = "ON"
             print("LED:", state_LED)
             
@@ -59,7 +59,7 @@ class Handler:
             image.set_from_file("on.png")
             button.set_image(image)                       
         else:
-            #GPIO.output(ledPin, GPIO.LOW)
+            GPIO.output(ledPin, GPIO.LOW)
             state_LED = "OFF"
             print("LED:", state_LED)
             
@@ -98,7 +98,7 @@ class Handler:
     
     def on_interface_destroy(self, *args):
         print("Exit application")
-        #GPIO.cleanup()
+        GPIO.cleanup()
 
 class Application:
 
@@ -123,9 +123,10 @@ class Application:
         window = self.builder.get_object("interface")
         window.show_all()
         window.connect("destroy", Gtk.main_quit)
-        self.startRoutine1s()
+        self.startRoutine_1sec()
+        self.startRoutine_1min()
         
-    def routine_1s(self):
+    def routine_1sec(self):
         #  Displays Timer
         #  putting our datetime into a var and setting our label to the result. 
         datetimenow = datetime.now()
@@ -147,40 +148,58 @@ class Application:
         #  Return "True" to ensure the timer continues to run, otherwise it will only run once.
         return True
     
-    def routine_10s(self):
-        sense = SenseHat()
-        sense.clear()
-
-        temperature = sense.get_temperature()
-        pressure = sense.get_pressure()
-        humidity = sense.get_humidity()
+    def routine_1min(self):
+        global temperature
+        global pressure
+        global humidity
         
-        text_temperature = "Temperature:\n" + str(round(temperature, 1)) + "°C"
-        text_pressure = "Pressure:\n" + str(round(pressure, 0)) + " hPa"
-        text_humidity = "Humidity:\n" + str(round(humidity, 0)) + "%"
+        try:
+            sense = SenseHat()
+            sense.clear()
         
-        label_temperature = self.builder.get_object('label_temperature')
-        label_pressure = self.builder.get_object('label_pressure')
-        label_humidity = self.builder.get_object('label_temperature')
-        
-        label_temperature.set_label(text_temperature)
-        label_pressure.set_label(text_pressure)
-        label_humidity.set_label(text_humidity)
-        
-        #  Return "True" to ensure the timer continues to run, otherwise it will only run once.
+            temperature = sense.get_temperature()
+            pressure = sense.get_pressure()
+            humidity = sense.get_humidity()
+            
+            text_temperature = "Temperature:\n" + str(round(temperature, 1)) + "°C"
+            text_pressure = "Pressure:\n" + str(int(round(pressure))) + " hPa"
+            text_humidity = "Humidity:\n" + str(int(round(humidity))) + "%"
+            
+            label_temperature = self.builder.get_object('label_temperature')
+            label_pressure = self.builder.get_object('label_pressure')
+            label_humidity = self.builder.get_object('label_humidity')
+            
+            label_temperature.set_label(text_temperature)
+            label_pressure.set_label(text_pressure)
+            label_humidity.set_label(text_humidity)
+        except:
+            print("Sense HAT and Raspberry are not communicating")
+            text_temperature = "Temperature:\n" + "--°C"
+            text_pressure = "Pressure:\n" + "---- hPa"
+            text_humidity = "Humidity:\n" + "--%"
+            
+            label_temperature = self.builder.get_object('label_temperature')
+            label_pressure = self.builder.get_object('label_pressure')
+            label_humidity = self.builder.get_object('label_humidity')
+            
+            label_temperature.set_label(text_temperature)
+            label_pressure.set_label(text_pressure)
+            label_humidity.set_label(text_humidity)
+            
+        #Return "True" to ensure the timer continues to run, otherwise it will only run once.
         return True
 
     # Initialize a routine
-    def startRoutine1s(self):
+    def startRoutine_1sec(self):
         #  this takes 2 args: (how often to update in millisec, the method to run)
-        self.routine()
-        GObject.timeout_add(1000, self.routine_1s)
+        self.routine_1sec()
+        GObject.timeout_add(1000, self.routine_1sec)
         
     # Initialize a routine
-    def startRoutine10s(self):
+    def startRoutine_1min(self):
         #  this takes 2 args: (how often to update in millisec, the method to run)
-        self.routine()
-        GObject.timeout_add(10000, self.routine_10s)
+        self.routine_1min()
+        GObject.timeout_add(60000, self.routine_1min)
 
     def main(self):
         Gtk.main()
