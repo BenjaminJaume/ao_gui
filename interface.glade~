@@ -195,6 +195,7 @@
             <property name="valign">center</property>
             <property name="margin_left">5</property>
             <property name="image">led_off</property>
+            <property name="relief">none</property>
             <property name="always_show_image">True</property>
             <signal name="clicked" handler="on_button_led_clicked" swapped="no"/>
           </object>
@@ -215,6 +216,7 @@
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="image">vent_off</property>
+            <property name="relief">none</property>
             <property name="always_show_image">True</property>
             <signal name="clicked" handler="on_button_vent_clicked" swapped="no"/>
           </object>
@@ -232,6 +234,7 @@
             <property name="margin_left">5</property>
             <property name="margin_top">5</property>
             <property name="image">plus</property>
+            <property name="relief">none</property>
             <property name="always_show_image">True</property>
           </object>
           <packing>
@@ -248,6 +251,7 @@
             <property name="margin_left">5</property>
             <property name="margin_bottom">5</property>
             <property name="image">minus</property>
+            <property name="relief">none</property>
             <property name="always_show_image">True</property>
           </object>
           <packing>
@@ -470,6 +474,7 @@
             <property name="valign">center</property>
             <property name="margin_right">5</property>
             <property name="image">settings</property>
+            <property name="relief">none</property>
             <property name="always_show_image">True</property>
             <signal name="clicked" handler="on_button_settings_clicked" swapped="no"/>
           </object>
@@ -483,8 +488,8 @@
           <object class="GtkLabel" id="label_time">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">12/04/2019
-00:00:00</property>
+            <property name="label" translatable="yes">--/--/----
+--:--:--</property>
             <property name="justify">right</property>
           </object>
           <packing>

@@ -1,15 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 import gi, os, sys, time
 gi.require_version('Gtk', '3.0')
 gi.require_version('WebKit', '3.0')
 from gi.repository import Gtk, GLib, Gdk, Gio, GObject, WebKit
 from gpiozero import LED
-from sense_hat import SenseHat
+#from sense_hat import SenseHat
 from datetime import datetime
-from gps import *
+#from gps import *
 from time import *
 import time
 import threading
@@ -17,6 +17,7 @@ import threading
 # Name of the module "Digital to Analog" : MCP3008
 
 GLADE_FILE = "interface.glade"
+CSS_FILE = "style.css"
 
 # pin definitions
 ledPin = 20
@@ -24,11 +25,11 @@ ventPin = 21
 #batteryPin = UNDEFINED
 
 # setup GPIO: BCM
-GPIO.setmode(GPIO.BCM) # Broadcom numbering system
-GPIO.setwarnings(False)
+#GPIO.setmode(GPIO.BCM) # Broadcom numbering system
+#GPIO.setwarnings(False)
 
 # setup GPIO input / output
-GPIO.setup(ledPin, GPIO.OUT)
+#GPIO.setup(ledPin, GPIO.OUT)
 #GPIO.setup(ventPin, GPIO.OUT)
 #GPIO.setup(batteryPin, GPIO.IN)
 
@@ -62,7 +63,7 @@ class Handler:
 
         # If we have clicked the button AND the LED was switched OFF
         if state_LED == "OFF":
-            GPIO.output(ledPin, GPIO.HIGH)
+            #GPIO.output(ledPin, GPIO.HIGH)
             state_LED = "ON"
             print("LED:", state_LED)
             
@@ -71,7 +72,7 @@ class Handler:
             image.set_from_file("on.png")
             button.set_image(image)                       
         else:
-            GPIO.output(ledPin, GPIO.LOW)
+            #GPIO.output(ledPin, GPIO.LOW)
             state_LED = "OFF"
             print("LED:", state_LED)
             
@@ -112,7 +113,7 @@ class Handler:
         print("Exit application")
         gpsp.running = False
         gpsp.join() # wait for the thread to finish what it's doing
-        GPIO.cleanup()
+        #GPIO.cleanup()
 
 class GpsPoller(threading.Thread):
     def __init__(self):
@@ -161,7 +162,28 @@ class Application:
             gpsp.start() # start it up
         except:
             print("Problem with the GPS. Error #3: Application init")
-            
+        
+        css = b"""
+
+        label {
+            color: white
+        }
+        
+        window {
+            background-image: url('pictures/background.png');
+        }
+        
+        """
+        
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_data(css)
+
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+        
         window = self.builder.get_object("interface")
         window.show_all()
         window.connect("destroy", Gtk.main_quit)
@@ -187,7 +209,7 @@ class Application:
         label_speed = self.builder.get_object('label_speed')
         label_altitude = self.builder.get_object('label_altitude')
         
-        # UPDATING THE TIME FROM THE OS
+        # UPDATING TIME FROM THE OS
         
         datetimenow = datetime.now()
         day = datetimenow.strftime("%d")
@@ -222,21 +244,7 @@ class Application:
             ##print ('sats        ' , gpsd.satellites)
             
             #print("GPS data OK")
-            
-            # UPLOAD TIME WITH GPS
-            
-            # 2019-04-28T02:26:27.000Z
-            #time = gpsd.fix.time
-            
-            #day = time[8:10]
-            #month = time[5:7]
-            #year = time[0:4]
-            #hour = time[11:13]
-            #minute = time[14:16]
-            #second = time[17:19]
-            
-            #text_time = day + "/" + month + "/" + year + "\n" + hour + ":" + minute + ":" + second
-            
+                       
             speed = gpsd.fix.speed
             altitude = gpsd.fix.altitude
             
@@ -245,8 +253,6 @@ class Application:
             
         except:
             print("Problem with the GPS. Error #4: Application routine_1s")
-            
-            #label_time.set_label("--/--/----\n--:--:--")
             
             text_speed = "Speed:\n-- km/h"
             text_altitude = "Altitude:\n-- m"
