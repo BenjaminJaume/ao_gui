@@ -1,14 +1,19 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-  
-import RPi.GPIO as GPIO
+
+#import RPi.GPIO as GPIO
 import gi, os, sys, time
+
 gi.require_version('Gtk', '3.0')
 gi.require_version('WebKit', '3.0')
 from gi.repository import Gtk, GLib, Gdk, Gio, GObject, WebKit
 from gpiozero import LED
-from sense_hat import SenseHat
+#from sense_hat import SenseHat
 from datetime import datetime
+from gps import *
+from time import *
+import time
+import threading
 
 # Name of the module "Digital to Analog" : MCP3008
 
@@ -20,21 +25,25 @@ ventPin = 21
 #batteryPin = UNDEFINED
 
 # setup GPIO
-GPIO.setmode(GPIO.BCM) # Broadcom numbering system
-GPIO.setup(ledPin, GPIO.OUT)
+#GPIO.setmode(GPIO.BCM) # Broadcom numbering system
+#GPIO.setup(ledPin, GPIO.OUT)
 #GPIO.setup(ventPin, GPIO.OUT)
 #GPIO.setup(batteryPin, GPIO.IN)
 
 # Initialise outputs
-GPIO.output(ledPin, GPIO.LOW)
+#GPIO.output(ledPin, GPIO.LOW)
 #GPIO.output(ventPin, GPIO.LOW)
 
 # Global variables definition
 state_LED = "OFF"
 state_vent = "OFF"
+
+gpsd = None #seting the global variable
+
 temperature = 0
 pressure = 0
 humidity = 0
+
 language = "EN"
 
 def map(x, inLo, inHi, outLo, outHi):
@@ -44,13 +53,12 @@ def map(x, inLo, inHi, outLo, outHi):
     return outLo + (inScale * outRange)
 
 class Handler:
-    
     def on_button_led_clicked(self, button):
         global state_LED
 
         # If we have clicked the button AND the LED was switched OFF
         if state_LED == "OFF":
-            GPIO.output(ledPin, GPIO.HIGH)
+            #GPIO.output(ledPin, GPIO.HIGH)
             state_LED = "ON"
             print("LED:", state_LED)
             
@@ -59,7 +67,7 @@ class Handler:
             image.set_from_file("on.png")
             button.set_image(image)                       
         else:
-            GPIO.output(ledPin, GPIO.LOW)
+            #GPIO.output(ledPin, GPIO.LOW)
             state_LED = "OFF"
             print("LED:", state_LED)
             
@@ -98,10 +106,24 @@ class Handler:
     
     def on_interface_destroy(self, *args):
         print("Exit application")
-        GPIO.cleanup()
+        gpsp.running = False
+        gpsp.join() # wait for the thread to finish what it's doing
+        #GPIO.cleanup()
 
+class GpsPoller(threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        global gpsd #bring it in scope
+        gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
+        self.current_value = None
+        self.running = True #setting the thread running to true
+
+    def run(self):
+        global gpsd
+        while gpsp.running:
+            gpsd.next() #this will continue to loop and grab EACH set of gpsd info to clear the buffer
+      
 class Application:
-
     def __init__(self):
 
         self.builder = Gtk.Builder()
@@ -186,6 +208,31 @@ class Application:
             label_pressure.set_label(text_pressure)
             label_humidity.set_label(text_humidity)
             
+        try:
+            gpsp.start() # start it up
+            
+            #It may take a second or two to get good data
+
+            print (' GPS reading')
+            print ('----------------------------------------')
+            print ('latitude    ' , gpsd.fix.latitude)
+            print ('longitude   ' , gpsd.fix.longitude)
+            print ('time utc    ' , gpsd.utc,' + ', gpsd.fix.time)
+            print ('altitude (m)' , gpsd.fix.altitude)
+            print ('eps         ' , gpsd.fix.eps)
+            print ('epx         ' , gpsd.fix.epx)
+            print ('epv         ' , gpsd.fix.epv)
+            print ('ept         ' , gpsd.fix.ept)
+            print ('speed (m/s) ' , gpsd.fix.speed)
+            print ('climb       ' , gpsd.fix.climb)
+            print ('track       ' , gpsd.fix.track)
+            print ('mode        ' , gpsd.fix.mode)
+            print ('sats        ' , gpsd.satellites)
+
+            #time.sleep(1) #set to whatever
+        except:
+            print("No GPS signal")
+            
         #Return "True" to ensure the timer continues to run, otherwise it will only run once.
         return True
 
@@ -203,6 +250,8 @@ class Application:
 
     def main(self):
         Gtk.main()
+        
+        gpsp = GpsPoller() # create the thread
         
 app = Application()
 app.main()
