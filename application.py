@@ -1,14 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import gi, os, sys, time
 
 gi.require_version('Gtk', '3.0')
 gi.require_version('WebKit', '3.0')
 from gi.repository import Gtk, GLib, Gdk, Gio, GObject, WebKit
 from gpiozero import LED
-#from sense_hat import SenseHat
+from sense_hat import SenseHat
 from datetime import datetime
 from gps import *
 from time import *
@@ -112,20 +111,30 @@ class Handler:
 
 class GpsPoller(threading.Thread):
     def __init__(self):
-        threading.Thread.__init__(self)
-        global gpsd #bring it in scope
-        gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
-        self.current_value = None
-        self.running = True #setting the thread running to true
+        try:
+            threading.Thread.__init__(self)
+        
+            global gpsd #bring it in scope
+            
+            gpsd = gps(mode=WATCH_ENABLE) #starting the stream of info
+            self.current_value = None
+            self.running = True #setting the thread running to true
+        except:
+            print("Problem with the GPS. Error #1: GpsPoller init")
 
     def run(self):
-        global gpsd
-        while gpsp.running:
-            gpsd.next() #this will continue to loop and grab EACH set of gpsd info to clear the buffer
+        try:
+            global gpsd
+            
+            while gpsp.running:
+                gpsd.next() #this will continue to loop and grab EACH set of gpsd info to clear the buffer
+        except:
+            print("Problem with the GPS. Error #2: GpsPoller run")
       
 class Application:
     def __init__(self):
-
+        global gpsp
+        
         self.builder = Gtk.Builder()
         self.builder.add_from_file(GLADE_FILE)
         self.builder.connect_signals(Handler())
@@ -142,6 +151,12 @@ class Application:
         #self.webview.show()  
         #self.webview.open("https://www.youtube.com")
         
+        try:
+            gpsp = GpsPoller() # create the thread
+            gpsp.start() # start it up
+        except:
+            print("Problem with the GPS. Error #3: Application init")
+            
         window = self.builder.get_object("interface")
         window.show_all()
         window.connect("destroy", Gtk.main_quit)
@@ -166,6 +181,27 @@ class Application:
                         str(hour) + ":" +
                         str(minute) + ":" +
                         str(second))
+
+        try:
+            #It may take a second or two to get good data
+
+            print (' GPS reading')
+            print ('----------------------------------------')
+            print ('latitude    ' , gpsd.fix.latitude)
+            print ('longitude   ' , gpsd.fix.longitude)
+            print ('time utc    ' , gpsd.utc,' + ', gpsd.fix.time)
+            print ('altitude (m)' , gpsd.fix.altitude)
+            print ('eps         ' , gpsd.fix.eps)
+            print ('epx         ' , gpsd.fix.epx)
+            print ('epv         ' , gpsd.fix.epv)
+            print ('ept         ' , gpsd.fix.ept)
+            print ('speed (m/s) ' , gpsd.fix.speed)
+            print ('climb       ' , gpsd.fix.climb)
+            print ('track       ' , gpsd.fix.track)
+            print ('mode        ' , gpsd.fix.mode)
+            #print ('sats        ' , gpsd.satellites)
+        except:
+            print("Problem with the GPS. Error #4: Application routine_1s")
         
         #  Return "True" to ensure the timer continues to run, otherwise it will only run once.
         return True
@@ -208,31 +244,6 @@ class Application:
             label_pressure.set_label(text_pressure)
             label_humidity.set_label(text_humidity)
             
-        try:
-            gpsp.start() # start it up
-            
-            #It may take a second or two to get good data
-
-            print (' GPS reading')
-            print ('----------------------------------------')
-            print ('latitude    ' , gpsd.fix.latitude)
-            print ('longitude   ' , gpsd.fix.longitude)
-            print ('time utc    ' , gpsd.utc,' + ', gpsd.fix.time)
-            print ('altitude (m)' , gpsd.fix.altitude)
-            print ('eps         ' , gpsd.fix.eps)
-            print ('epx         ' , gpsd.fix.epx)
-            print ('epv         ' , gpsd.fix.epv)
-            print ('ept         ' , gpsd.fix.ept)
-            print ('speed (m/s) ' , gpsd.fix.speed)
-            print ('climb       ' , gpsd.fix.climb)
-            print ('track       ' , gpsd.fix.track)
-            print ('mode        ' , gpsd.fix.mode)
-            print ('sats        ' , gpsd.satellites)
-
-            #time.sleep(1) #set to whatever
-        except:
-            print("No GPS signal")
-            
         #Return "True" to ensure the timer continues to run, otherwise it will only run once.
         return True
 
@@ -250,8 +261,7 @@ class Application:
 
     def main(self):
         Gtk.main()
-        
-        gpsp = GpsPoller() # create the thread
+
         
 app = Application()
 app.main()
