@@ -371,12 +371,9 @@
             <property name="margin_bottom">5</property>
             <property name="tab_pos">left</property>
             <child>
-              <object class="GtkScrolledWindow" id="panel_window_gps">
+              <object class="GtkDrawingArea" id="panel_gps">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <child>
-                  <placeholder/>
-                </child>
+                <property name="can_focus">False</property>
               </object>
             </child>
             <child type="tab">
@@ -486,8 +483,8 @@
           <object class="GtkLabel" id="label_time">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">12/04/2019
-00:00:00</property>
+            <property name="label" translatable="yes">--/--/----
+--:--:--</property>
             <property name="justify">right</property>
           </object>
           <packing>

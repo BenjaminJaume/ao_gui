@@ -267,9 +267,9 @@
             <property name="inverted">True</property>
           </object>
           <packing>
-            <property name="left_attach">28</property>
+            <property name="left_attach">29</property>
             <property name="top_attach">2</property>
-            <property name="width">4</property>
+            <property name="width">2</property>
             <property name="height">9</property>
           </packing>
         </child>
@@ -371,12 +371,9 @@
             <property name="margin_bottom">5</property>
             <property name="tab_pos">left</property>
             <child>
-              <object class="GtkScrolledWindow" id="panel_window_gps">
+              <object class="GtkDrawingArea" id="panel_gps">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <child>
-                  <placeholder/>
-                </child>
+                <property name="can_focus">False</property>
               </object>
             </child>
             <child type="tab">
@@ -529,6 +526,60 @@
             <property name="top_attach">0</property>
             <property name="width">5</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <placeholder/>
