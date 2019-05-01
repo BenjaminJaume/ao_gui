@@ -7,7 +7,7 @@
     <property name="can_focus">False</property>
     <property name="pixbuf">off.png</property>
   </object>
-  <object class="GtkImage" id="minus">
+  <object class="GtkImage" id="mins">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="pixbuf">minus.png</property>
