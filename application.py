@@ -165,7 +165,7 @@ class Application:
         except:
             print("Problem with the GPS. Error #3: Application init")
         
-        window = self.builder.get_object("interface")
+        window = self.builder.get_object("window_application")
         window.show_all()
         window.connect("destroy", Gtk.main_quit)
         self.set_style()

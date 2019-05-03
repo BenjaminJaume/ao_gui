@@ -29,7 +29,7 @@
     <property name="can_focus">False</property>
     <property name="pixbuf">rsz_fan_off.png</property>
   </object>
-  <object class="GtkWindow" id="interface">
+  <object class="GtkWindow" id="window_application">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">AO Skylys</property>
     <property name="window_position">center</property>
@@ -49,7 +49,7 @@
             <property name="width_request">120</property>
             <property name="height_request">30</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can_focus">False</property>
             <property name="focus_on_click">False</property>
             <property name="receives_default">True</property>
             <property name="halign">center</property>
@@ -795,7 +795,7 @@
       </object>
     </child>
     <style>
-      <class name="interface"/>
+      <class name="window_application"/>
     </style>
   </object>
 </interface>
