@@ -9,6 +9,7 @@ from gi.repository import Gtk, GLib, Gdk, Gio, GObject, WebKit
 from gpiozero import LED
 #from sense_hat import SenseHat
 from datetime import datetime
+from os.path import abspath, dirname, join
 #from gps import *
 from time import *
 import time
@@ -16,8 +17,9 @@ import threading
 
 # Name of the module "Digital to Analog" : MCP3008
 
+# PATH
 GLADE_FILE = "interface.glade"
-CSS_FILE = "style.css"
+WHERE_AM_I = abspath(dirname(__file__))
 
 # pin definitions
 ledPin = 20
@@ -69,7 +71,7 @@ class Handler:
             
             button.set_label("LED: ON")
             image = Gtk.Image()
-            image.set_from_file("on.png")
+            image.set_from_file("rsz_led_on.png")
             button.set_image(image)                       
         else:
             #GPIO.output(ledPin, GPIO.LOW)
@@ -78,7 +80,7 @@ class Handler:
             
             button.set_label("LED: OFF")
             image = Gtk.Image()
-            image.set_from_file("off.png")
+            image.set_from_file("rsz_led_off.png")
             button.set_image(image)
             
     def on_button_vent_clicked(self, button):
@@ -91,7 +93,7 @@ class Handler:
             
             button.set_label("Ventilation: ON")
             image = Gtk.Image()
-            image.set_from_file("on.png")
+            image.set_from_file("rsz_fan_on.png")
             button.set_image(image)
             #image.set_from_stock(Gtk.STOCK_NO, Gtk.IconSize.BUTTON)
         else:
@@ -101,7 +103,7 @@ class Handler:
             
             button.set_label("Ventilation: OFF")
             image = Gtk.Image()
-            image.set_from_file("off.png")
+            image.set_from_file("rsz_fan_off.png")
             button.set_image(image)
             #image.set_from_stock(Gtk.STOCK_YES, Gtk.IconSize.BUTTON)
     
@@ -163,32 +165,27 @@ class Application:
         except:
             print("Problem with the GPS. Error #3: Application init")
         
-        css = b"""
-
-        label {
-            color: white
-        }
-        
-        window {
-            background-image: url('pictures/background.png');
-        }
-        
-        """
-        
-        style_provider = Gtk.CssProvider()
-        style_provider.load_from_data(css)
-
-        Gtk.StyleContext.add_provider_for_screen(
-            Gdk.Screen.get_default(),
-            style_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        )
-        
         window = self.builder.get_object("interface")
         window.show_all()
         window.connect("destroy", Gtk.main_quit)
+        self.set_style()
         self.startRoutine_1sec()
         self.startRoutine_1min()
+        
+    def set_style(self):       
+        """
+        Change Gtk+ Style
+        """
+        provider = Gtk.CssProvider()
+        # Demo CSS kindly provided by Numix project
+        provider.load_from_path(join(WHERE_AM_I, 'style.css'))
+        screen = Gdk.Display.get_default_screen(Gdk.Display.get_default())
+        # I was unable to found instrospected version of this
+        GTK_STYLE_PROVIDER_PRIORITY_APPLICATION = 600
+        Gtk.StyleContext.add_provider_for_screen(
+            screen, provider,
+            GTK_STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
         
     def routine_1sec(self):
         global speed
