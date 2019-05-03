@@ -1,0 +1,24 @@
+.window_application {
+	background-image: url('background.png');
+}
+
+button {
+	
+}
+
+button:hover {
+	background-color: transparent;
+    color: #000;
+	background-image: none;
+	border: 0px;	
+	border-radius: 0px;
+	transition: none;
+	box-shadow: none;
+	text-shadow: none;
+	text-decoration: none;
+	outline: none;
+}
+
+label {
+	color: white;
+}
