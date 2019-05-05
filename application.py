@@ -71,7 +71,7 @@ class Handler:
             
             button.set_label("LED: ON")
             image = Gtk.Image()
-            image.set_from_file("rsz_led_on.png")
+            image.set_from_file("/home/pi/AO_Skylys/pictures/new_led_on.png")
             button.set_image(image)                       
         else:
             #GPIO.output(ledPin, GPIO.LOW)
@@ -80,7 +80,7 @@ class Handler:
             
             button.set_label("LED: OFF")
             image = Gtk.Image()
-            image.set_from_file("rsz_led_off.png")
+            image.set_from_file("/home/pi/AO_Skylys/pictures/new_led_off.png")
             button.set_image(image)
             
     def on_button_vent_clicked(self, button):
@@ -93,7 +93,7 @@ class Handler:
             
             button.set_label("Ventilation: ON")
             image = Gtk.Image()
-            image.set_from_file("rsz_fan_on.png")
+            image.set_from_file("/home/pi/AO_Skylys/pictures/new_fan_on.png")
             button.set_image(image)
             #image.set_from_stock(Gtk.STOCK_NO, Gtk.IconSize.BUTTON)
         else:
@@ -103,7 +103,7 @@ class Handler:
             
             button.set_label("Ventilation: OFF")
             image = Gtk.Image()
-            image.set_from_file("rsz_fan_off.png")
+            image.set_from_file("/home/pi/AO_Skylys/pictures/new_fan_off.png")
             button.set_image(image)
             #image.set_from_stock(Gtk.STOCK_YES, Gtk.IconSize.BUTTON)
     
@@ -178,7 +178,7 @@ class Application:
         """
         provider = Gtk.CssProvider()
         # Demo CSS kindly provided by Numix project
-        provider.load_from_path(join(WHERE_AM_I, 'style.css'))
+        provider.load_from_path(join(WHERE_AM_I, 'css/style.css'))
         screen = Gdk.Display.get_default_screen(Gdk.Display.get_default())
         # I was unable to found instrospected version of this
         GTK_STYLE_PROVIDER_PRIORITY_APPLICATION = 600

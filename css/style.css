@@ -1,5 +1,6 @@
 .window_application {
-	background-image: url('background.png');
+	background-image: url('/home/pi/AO_Skylys/pictures/background.png');
+	background-size:cover;
 }
 
 button {
@@ -12,11 +13,13 @@ button:hover {
 	background-image: none;
 	border: 0px;	
 	border-radius: 0px;
+	
 	transition: none;
+	animation: none;
 	box-shadow: none;
 	text-shadow: none;
 	text-decoration: none;
-	outline: none;
+	
 }
 
 label {

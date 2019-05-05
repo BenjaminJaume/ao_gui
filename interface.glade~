@@ -2,174 +2,38 @@
 <!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <!-- interface-local-resource-path /home/pi/AO_Skylys/pictures -->
+  <!-- interface-css-provider-path css/style.css -->
   <object class="GtkImage" id="led_off">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="pixbuf">off.png</property>
+    <property name="halign">center</property>
+    <property name="valign">center</property>
+    <property name="pixbuf">/home/pi/AO_Skylys/pictures/new_led_off.png</property>
   </object>
   <object class="GtkImage" id="minus">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="pixbuf">minus.png</property>
+    <property name="pixbuf">/home/pi/AO_Skylys/pictures/minus.png</property>
   </object>
   <object class="GtkImage" id="plus">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="pixbuf">plus.png</property>
-  </object>
-  <object class="GtkDialog" id="setting">
-    <property name="can_focus">False</property>
-    <property name="type_hint">dialog</property>
-    <child internal-child="vbox">
-      <object class="GtkBox">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton">
-                <property name="label" translatable="yes">Cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="label" translatable="yes">OK</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkNotebook">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <child>
-              <object class="GtkGrid">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="row_homogeneous">True</property>
-                <property name="column_homogeneous">True</property>
-                <child>
-                  <object class="GtkButton" id="button_led">
-                    <property name="label" translatable="yes">LED: ON</property>
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="always_show_image">True</property>
-                    <signal name="clicked" handler="on_button_led_clicked" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel" id="label_bluetooth">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Bluetooth</property>
-              </object>
-              <packing>
-                <property name="tab_fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">label</property>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">page 2</property>
-              </object>
-              <packing>
-                <property name="position">1</property>
-                <property name="tab_fill">False</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">label</property>
-              </object>
-              <packing>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child type="tab">
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">page 3</property>
-              </object>
-              <packing>
-                <property name="position">2</property>
-                <property name="tab_fill">False</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
+    <property name="pixbuf">/home/pi/AO_Skylys/pictures/plus.png</property>
   </object>
   <object class="GtkImage" id="settings">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="pixbuf">settings.png</property>
+    <property name="pixbuf">/home/pi/AO_Skylys/pictures/new_settings.png</property>
   </object>
   <object class="GtkImage" id="vent_off">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="pixbuf">off.png</property>
+    <property name="halign">end</property>
+    <property name="valign">end</property>
+    <property name="pixbuf">/home/pi/AO_Skylys/pictures/new_fan_off.png</property>
   </object>
-  <object class="GtkWindow" id="interface">
+  <object class="GtkWindow" id="window_application">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">AO Skylys</property>
     <property name="window_position">center</property>
@@ -189,11 +53,11 @@
             <property name="width_request">120</property>
             <property name="height_request">30</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can_focus">False</property>
+            <property name="focus_on_click">False</property>
             <property name="receives_default">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
-            <property name="margin_left">5</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
             <property name="image">led_off</property>
             <property name="relief">none</property>
             <property name="always_show_image">True</property>
@@ -211,10 +75,11 @@
             <property name="width_request">120</property>
             <property name="height_request">30</property>
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
+            <property name="can_focus">False</property>
+            <property name="focus_on_click">False</property>
             <property name="receives_default">True</property>
-            <property name="halign">center</property>
-            <property name="valign">center</property>
+            <property name="halign">start</property>
+            <property name="valign">start</property>
             <property name="image">vent_off</property>
             <property name="relief">none</property>
             <property name="always_show_image">True</property>
@@ -230,6 +95,7 @@
           <object class="GtkButton" id="button_volume_up">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="focus_on_click">False</property>
             <property name="receives_default">True</property>
             <property name="margin_left">5</property>
             <property name="margin_top">5</property>
@@ -247,6 +113,7 @@
           <object class="GtkButton" id="button_volume_down">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="focus_on_click">False</property>
             <property name="receives_default">True</property>
             <property name="margin_left">5</property>
             <property name="margin_bottom">5</property>
@@ -384,7 +251,7 @@
               <object class="GtkImage" id="maps">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="pixbuf">maps.png</property>
+                <property name="pixbuf">/home/pi/AO_Skylys/pictures/maps.png</property>
               </object>
               <packing>
                 <property name="tab_fill">False</property>
@@ -406,7 +273,7 @@
               <object class="GtkImage" id="youtube">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="pixbuf">youtube.png</property>
+                <property name="pixbuf">/home/pi/AO_Skylys/pictures/youtube.png</property>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -427,7 +294,7 @@
               <object class="GtkImage" id="radio">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="pixbuf">radio.png</property>
+                <property name="pixbuf">/home/pi/AO_Skylys/pictures/radio.png</property>
               </object>
               <packing>
                 <property name="position">2</property>
@@ -448,7 +315,7 @@
               <object class="GtkImage" id="bluetooth">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="pixbuf">bluetooth.png</property>
+                <property name="pixbuf">/home/pi/AO_Skylys/pictures/bluetooth.png</property>
               </object>
               <packing>
                 <property name="position">3</property>
@@ -457,10 +324,10 @@
             </child>
           </object>
           <packing>
-            <property name="left_attach">2</property>
-            <property name="top_attach">1</property>
-            <property name="width">26</property>
-            <property name="height">10</property>
+            <property name="left_attach">4</property>
+            <property name="top_attach">2</property>
+            <property name="width">22</property>
+            <property name="height">8</property>
           </packing>
         </child>
         <child>
@@ -469,6 +336,7 @@
             <property name="height_request">30</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="focus_on_click">False</property>
             <property name="receives_default">True</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
@@ -531,6 +399,269 @@
             <property name="top_attach">0</property>
             <property name="width">5</property>
           </packing>
+        </child>
+        <child>
+          <object class="GtkEventBox" id="eventBox1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <signal name="button-press-event" handler="on_eventBox1_button_press_event" swapped="no"/>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">8</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <placeholder/>
@@ -678,5 +809,8 @@
         </child>
       </object>
     </child>
+    <style>
+      <class name="window_application"/>
+    </style>
   </object>
 </interface>
