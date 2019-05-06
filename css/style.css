@@ -4,22 +4,27 @@
 }
 
 button {
-	
+	color: white;
+}
+
+button LED_off{
+	color: white;
 }
 
 button:hover {
-	background-color: transparent;
+	transition-property: none;
+
+	background-size: 0px;
     color: #000;
-	background-image: none;
+	background: none;
 	border: 0px;	
 	border-radius: 0px;
-	
 	transition: none;
 	animation: none;
 	box-shadow: none;
 	text-shadow: none;
 	text-decoration: none;
-	
+    border-color: transparent;
 }
 
 label {

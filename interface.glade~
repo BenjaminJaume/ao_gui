@@ -4,12 +4,15 @@
   <requires lib="gtk+" version="3.20"/>
   <!-- interface-local-resource-path /home/pi/AO_Skylys/pictures -->
   <!-- interface-css-provider-path css/style.css -->
-  <object class="GtkImage" id="led_off">
+  <object class="GtkImage" id="LED_off">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="halign">center</property>
     <property name="valign">center</property>
-    <property name="pixbuf">/home/pi/AO_Skylys/pictures/new_led_off.png</property>
+    <property name="pixbuf">/home/pi/AO_Skylys/pictures/new_LED_off.png</property>
+    <style>
+      <class name="LED_off"/>
+    </style>
   </object>
   <object class="GtkImage" id="minus">
     <property name="visible">True</property>
@@ -58,10 +61,13 @@
             <property name="receives_default">True</property>
             <property name="halign">start</property>
             <property name="valign">start</property>
-            <property name="image">led_off</property>
+            <property name="image">LED_off</property>
             <property name="relief">none</property>
             <property name="always_show_image">True</property>
             <signal name="clicked" handler="on_button_led_clicked" swapped="no"/>
+            <style>
+              <class name="button_LED"/>
+            </style>
           </object>
           <packing>
             <property name="left_attach">0</property>

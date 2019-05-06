@@ -60,7 +60,7 @@ def map(x, inLo, inHi, outLo, outHi):
     return outLo + (inScale * outRange)
 
 class Handler:
-    def on_button_led_clicked(self, button):
+    def on_button_LED_clicked(self, button):
         global state_LED
 
         # If we have clicked the button AND the LED was switched OFF
@@ -71,7 +71,7 @@ class Handler:
             
             button.set_label("LED: ON")
             image = Gtk.Image()
-            image.set_from_file("/home/pi/AO_Skylys/pictures/new_led_on.png")
+            image.set_from_file("/home/pi/AO_Skylys/pictures/new_LED_on.png")
             button.set_image(image)                       
         else:
             #GPIO.output(ledPin, GPIO.LOW)
@@ -80,7 +80,7 @@ class Handler:
             
             button.set_label("LED: OFF")
             image = Gtk.Image()
-            image.set_from_file("/home/pi/AO_Skylys/pictures/new_led_off.png")
+            image.set_from_file("/home/pi/AO_Skylys/pictures/new_LED_off.png")
             button.set_image(image)
             
     def on_button_vent_clicked(self, button):
